@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF=8">
+    <title>Caesar Cipher</title>
+</head>
+<body>
+    <h1>Caesar Cipher</h1>
+    <textarea id="inputText" placeholder="Enter text here..."></textarea>
+    <br>
+    <label>Shift number: </label>
+    <input type="number" id="shiftNum" value="3">
+    <br>
+    <button onclick="encrypt()">Encrypt</button>
+    <button onclick="decrypt()">Decrypt</button>
+    <br>
+    <h3>Result:</h3>
+    <p id="result"></p>
+    <script>
+            function encrypt() {
+                const text = document.getElementById('inputText').value;
+                const shift = parseInt(document.getElementById('shiftNum').value);
+                let result = '';
+
+                for (let i =0; i < text.length; i++){
+                    let char = text[i];
+                    if (char.match(/[a-zA-Z]/)) {
+                        const base = char === char.toUpperCase() ? 65: 97;
+                        result += String.fromCharCode((char.charCodeAt(0) - base + shift) % 26 + base);
+                    }else {
+                        result += char;
+                    }
+                }
+                document.getElementById('result').textContent = result;
+            }
+            function decrypt() {
+                const text = document.getElementById('inputText').value;
+                const shift = parseInt(document.getElementById('shiftNum').value);
+                let result = '';
+
+                for (let i = 0; i< text.length; i++) {
+                    let char = text[i];
+                    if (char.match(/[a-zA-Z]/)) {
+                        const base = char === char.toUpperCase() ? 65 : 97;
+                        result += String.fromCharCode((char.charCodeAt(0) - base -shift + 26) % 26 + base);
+                    } else {
+                        result += char;
+                    }
+                }
+                document.getElementById('result').textContent = result;
+            }
+
+    </script>
+</body>
+</html>
